@@ -7,8 +7,10 @@ import com.laurentvrevin.spinwheel.presentation.component.SpinningWheel
 @Composable
 fun MyAppScreen() {
     MaterialTheme {
-        //For the moment, i make a fake list to test, i'll see later to add with a screen
+        //For the moment, i make a fake list to test, i'll see later to add with a different screen
         val items = listOf("Raclette", "Crêpes salées", "Omelette", "Ratatouille", "Pizza", "Tartiflette")
-        SpinningWheel(items = items)
+        SpinningWheel(
+            items = items
+        )
     }
 }

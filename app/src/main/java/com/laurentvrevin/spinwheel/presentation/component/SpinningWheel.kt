@@ -1,5 +1,6 @@
 package com.laurentvrevin.spinwheel.presentation.component
 
+import android.content.Context
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -13,7 +14,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.graphics.nativeCanvas
-import androidx.compose.ui.input.pointer.pointerInput
+
 import androidx.compose.ui.unit.*
 import kotlinx.coroutines.launch
 import kotlin.math.cos
@@ -30,11 +31,8 @@ fun SpinningWheel(
     val coroutineScope = rememberCoroutineScope()
     var selectedItem by remember { mutableStateOf("") }
 
-    var pressStartTime by remember { mutableLongStateOf(0L) }
-    var pressDuration by remember { mutableLongStateOf(0L) }
-
+    //Function to "Run the wheel"
     suspend fun spinWheel(impulseDuration: Long) {
-
         val impulseFactor = (impulseDuration / 100f).coerceIn(1f, 10f)
         val targetRotation = (impulseFactor * 360) + Random.nextInt(0, 360)
 
@@ -57,6 +55,12 @@ fun SpinningWheel(
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        if (selectedItem.isNotEmpty()) {
+            Text("Selected Item : $selectedItem", style = MaterialTheme.typography.headlineMedium)
+        }
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         Box(modifier = Modifier.size(300.dp)) {
             Canvas(modifier = Modifier.fillMaxSize()) {
                 val radius = size.minDimension / 2
@@ -111,33 +115,15 @@ fun SpinningWheel(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        //Button with pressure effect
-        Box(
-            modifier = Modifier
-                .size(150.dp, 50.dp)
-                .pointerInput(Unit) {
-                    detectTapGestures(
-                        onPress = {
-                            pressStartTime = System.currentTimeMillis()
-                            tryAwaitRelease()
-                            pressDuration = System.currentTimeMillis() - pressStartTime
-                            coroutineScope.launch { spinWheel(pressDuration) }
-                        }
-                    )
+        PressableCTAButton(
+            text = "Run",
+            onSpinRequested = { pressDuration ->
+                coroutineScope.launch {
+                    spinWheel(pressDuration)
                 }
-        ) {
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                Text("Run", style = MaterialTheme.typography.bodyLarge)
             }
-        }
+        )
 
-        Spacer(modifier = Modifier.height(16.dp))
-
-        if (selectedItem.isNotEmpty()) {
-            Text("Selected Item : $selectedItem", style = MaterialTheme.typography.headlineMedium)
-        }
     }
 }
+
