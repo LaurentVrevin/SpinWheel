@@ -5,7 +5,7 @@ plugins {
 
 android {
     namespace = "com.laurentvrevin.spinwheel"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.laurentvrevin.spinwheel"
@@ -58,6 +58,9 @@ dependencies {
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
+
+    implementation (libs.ui.tooling)
+    implementation (libs.androidx.animation)
     implementation(libs.androidx.material3)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

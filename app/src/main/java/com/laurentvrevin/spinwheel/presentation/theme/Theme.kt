@@ -1,4 +1,4 @@
-package com.laurentvrevin.spinwheel.ui.theme
+package com.laurentvrevin.spinwheel.presentation.theme
 
 import android.app.Activity
 import android.os.Build

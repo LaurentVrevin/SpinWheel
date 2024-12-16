@@ -1,4 +1,4 @@
-package com.laurentvrevin.spinwheel.ui.theme
+package com.laurentvrevin.spinwheel.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

@@ -1,4 +1,4 @@
-package com.laurentvrevin.spinwheel.ui.theme
+package com.laurentvrevin.spinwheel.presentation.theme
 
 import androidx.compose.ui.graphics.Color
 
