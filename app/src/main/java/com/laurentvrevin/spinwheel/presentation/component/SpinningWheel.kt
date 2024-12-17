@@ -1,5 +1,6 @@
 package com.laurentvrevin.spinwheel.presentation.component
 
+import android.content.Context
 import androidx.compose.animation.core.*
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.layout.*
@@ -13,6 +14,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.withTransform
 import androidx.compose.ui.graphics.nativeCanvas
 import androidx.compose.ui.unit.*
+import com.laurentvrevin.spinwheel.utils.vibrateLightly
 import kotlinx.coroutines.launch
 import kotlin.math.cos
 import kotlin.math.sin
@@ -21,7 +23,8 @@ import kotlin.random.Random
 @Composable
 fun SpinningWheel(
     items: List<String>,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    context: Context
 ) {
     // Initialize rotation animation and selected item state
     val anglePerItem = 360f / items.size
@@ -39,7 +42,13 @@ fun SpinningWheel(
             animationSpec = tween(
                 durationMillis = (2000 + (impulseFactor * 100)).toInt(),
                 easing = FastOutSlowInEasing
-            )
+            ),
+            block = {
+                // Trigger vibration periodically during the rotation
+                if (value.toInt() % 30 == 0) { // Every ~30 degrees
+                    vibrateLightly(context)
+                }
+            }
         )
 
         // Determine the selected item after the wheel stops
@@ -97,7 +106,7 @@ fun SpinningWheel(
                             textY,
                             android.graphics.Paint().apply {
                                 textAlign = android.graphics.Paint.Align.CENTER
-                                color = android.graphics.Color.BLACK
+                                color = android.graphics.Color.WHITE
                                 textSize = 36f
                                 isAntiAlias = true
                             }
