@@ -9,9 +9,10 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
 import com.laurentvrevin.spinwheel.utils.drawSpinningWheel
-import com.laurentvrevin.spinwheel.utils.spinWheel
+import com.laurentvrevin.spinwheel.utils.animateWheelSpin
 import kotlinx.coroutines.launch
 
 @Composable
@@ -26,16 +27,27 @@ fun SpinningWheel(
     var selectedItem by remember { mutableStateOf("") }
     val hapticFeedback = LocalHapticFeedback.current
 
+    Column(modifier = modifier
+        .fillMaxWidth()
+        .padding(48.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "Tu veux faire quoi ?",
+            style = MaterialTheme.typography.headlineLarge,
+            fontWeight = FontWeight.ExtraBold
+        )
+        Spacer(modifier = Modifier.height(32.dp))
+        Text(selectedItem, style = MaterialTheme.typography.headlineMedium)
+    }
+
+    Spacer(modifier = Modifier.height(16.dp))
+
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (selectedItem.isNotEmpty()) {
-            Text("Selected Item : $selectedItem", style = MaterialTheme.typography.headlineMedium)
-        }
-
-        Spacer(modifier = Modifier.height(16.dp))
 
         Box(modifier = Modifier.size(300.dp)) {
             Canvas(modifier = Modifier.fillMaxSize()) {
@@ -47,13 +59,13 @@ fun SpinningWheel(
             }
         }
 
-        Spacer(modifier = Modifier.height(16.dp))
+        Spacer(modifier = Modifier.height(48.dp))
 
         PressableCTAButton(
             text = "Run",
             onSpinRequested = { pressDuration ->
                 coroutineScope.launch {
-                    spinWheel(
+                    animateWheelSpin(
                         rotation = rotation,
                         anglePerItem = anglePerItem,
                         items = items,
@@ -68,3 +80,4 @@ fun SpinningWheel(
         )
     }
 }
+

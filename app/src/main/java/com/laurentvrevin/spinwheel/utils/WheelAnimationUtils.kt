@@ -8,20 +8,19 @@ import androidx.compose.ui.hapticfeedback.HapticFeedback
 import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import kotlin.random.Random
 
-suspend fun spinWheel(
+suspend fun animateWheelSpin(
     rotation: Animatable<Float, AnimationVector1D>,
     anglePerItem: Float,
     items: List<String>,
     impulseDuration: Long,
     onSpinCompleted: (String) -> Unit,
     hapticFeedback: HapticFeedback? = null
-
 ) {
-    // Calcul du facteur d'impulsion pour ajuster la durée et l'amplitude de la rotation
+    // Calculate the impulse factor to adjust spin duration and amplitude
     val impulseFactor = (impulseDuration / 100f).coerceIn(1f, 10f)
     val targetRotation = (impulseFactor * 360) + Random.nextInt(0, 360)
 
-    // Animer la rotation
+    // Animate the rotation
     rotation.animateTo(
         targetValue = rotation.value + targetRotation,
         animationSpec = tween(
@@ -29,20 +28,20 @@ suspend fun spinWheel(
             easing = FastOutSlowInEasing
         ),
         block = {
+            // Trigger haptic feedback periodically during rotation
             if (value.toInt() % 30 == 0) {
                 hapticFeedback?.performHapticFeedback(HapticFeedbackType.LongPress)
             }
         }
     )
 
-    // Calcul de l'angle final (normalisé entre 0 et 360)
+    // Normalize the final rotation angle between 0 and 360 degrees
     val finalRotation = (rotation.value % 360f + 360f) % 360f
 
-    // Ajuster l'angle pour correspondre à l'élément sélectionné
+    // Adjust the angle to find the selected item
     val adjustedRotation = (360f - finalRotation + 270f) % 360f
     val selectedIndex = ((adjustedRotation / anglePerItem).toInt()) % items.size
 
-    // Appeler le callback avec l'élément sélectionné
+    // Invoke the callback with the selected item
     onSpinCompleted(items[selectedIndex])
 }
-
