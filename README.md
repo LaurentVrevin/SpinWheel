@@ -81,6 +81,7 @@ This project is licensed under the MIT License. See the LICENSE file for details
 ## Acknowledgments
 
 -   [Jetpack Compose Documentation](https://developer.android.com/jetpack/compose)
+-   [Canvas Api Documentation](https://developer.android.com/develop/ui/compose/graphics/draw/overview?hl=fr)
 -   [Haptic Feedback in Compose](https://developer.android.com/jetpack/compose/haptic-feedback)
 -   Open-source contributors ❤️
 
