@@ -3,11 +3,12 @@ package com.laurentvrevin.spinwheel.data
 // Default items
 fun getDefaultWheelItems(): List<String> {
     return listOf(
+        "Lire un manga",
+        "Une sieste",
+        "Faire une raclette",
+        "Manger un cookie",
         "Coder en Kotlin",
         "Boire un café",
-        "Une sieste",
-        "Manger un cookie",
-        "Lire un manga",
-        "Faire une raclette"
+        "Faire un prout"
     )
 }

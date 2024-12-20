@@ -4,6 +4,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import kotlin.math.sin
 
+
 fun DrawScope.drawSpinningWheel(
     items: List<String>,
     anglePerItem: Float,
@@ -20,7 +21,11 @@ fun DrawScope.drawSpinningWheel(
     items.forEachIndexed { index, item ->
         val startAngle = index * anglePerItem + rotationValue
         val middleAngle = startAngle + anglePerItem / 2
+
+        // Forcing alternation by checking whether the segment is in the first half of the wheel
         val segmentColor = if (index % 2 == 0) Color.White else Color.Black
+        //Voir pour ajuster les items afin d'en avoir toujours en Pair !
+        //val segmentColorif (items.size % 2 == 1) items + " " else items
 
         drawSegment(
             startAngle = startAngle,
@@ -45,6 +50,3 @@ fun DrawScope.drawSpinningWheel(
     val arrowOffset = 10 * sin(Math.toRadians(rotationValue.toDouble())).toFloat()
     drawArrow(centerX, centerY, radius, arrowOffset)
 }
-
-
-
