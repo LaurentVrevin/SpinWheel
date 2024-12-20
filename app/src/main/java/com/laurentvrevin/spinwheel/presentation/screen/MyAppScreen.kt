@@ -10,7 +10,7 @@ import com.laurentvrevin.spinwheel.data.getDefaultWheelItems
 fun MyAppScreen() {
     MaterialTheme {
 
-        val items = getDefaultWheelItems()
+        val items = getDefaultWheelItems(context = LocalContext.current)
         SpinningWheel(
             items = items,
             context = LocalContext.current

@@ -9,19 +9,26 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.*
+import com.laurentvrevin.spinwheel.R
 import com.laurentvrevin.spinwheel.utils.drawSpinningWheel
 import com.laurentvrevin.spinwheel.utils.animateWheelSpin
 import kotlinx.coroutines.launch
 
 @Composable
 fun SpinningWheel(
-    items: List<String>,
+    items: MutableList<String>,
     modifier: Modifier = Modifier,
     context: Context
 ) {
+    //Add an element if the list size is odd so that it is always even
+    if (items.size % 2 != 0) {
+        items.add(context.getString(R.string.fallback_item))
+    }
     val anglePerItem = 360f / items.size
+
     val rotation = remember { Animatable(0f) }
     val coroutineScope = rememberCoroutineScope()
     var selectedItem by remember { mutableStateOf("") }
@@ -33,7 +40,7 @@ fun SpinningWheel(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Tu veux faire quoi ?",
+            text = stringResource(id = R.string.title_text),
             style = MaterialTheme.typography.headlineLarge,
             fontWeight = FontWeight.ExtraBold
         )

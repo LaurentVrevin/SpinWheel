@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">SpinWheel</string>
+    <string name="default_item_1">Lire un manga</string>
+    <string name="default_item_2">Une sieste</string>
+    <string name="default_item_3">Faire une raclette</string>
+    <string name="default_item_4">Manger un cookie</string>
+    <string name="default_item_5">Coder en Kotlin</string>
+    <string name="default_item_6">Boire un café</string>
+    <string name="fallback_item">Essaye encore ♥</string>
+    <string name="title_text">Tu veux faire quoi ?</string>
+    <string name="run_button">Run</string>
 </resources>

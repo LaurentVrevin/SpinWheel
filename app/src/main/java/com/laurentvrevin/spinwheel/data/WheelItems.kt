@@ -1,14 +1,16 @@
 package com.laurentvrevin.spinwheel.data
 
+import android.content.Context
+import com.laurentvrevin.spinwheel.R
+
 // Default items
-fun getDefaultWheelItems(): List<String> {
-    return listOf(
-        "Lire un manga",
-        "Une sieste",
-        "Faire une raclette",
-        "Manger un cookie",
-        "Coder en Kotlin",
-        "Boire un café",
-        "Faire un prout"
+fun getDefaultWheelItems(context: Context): MutableList<String> {
+    return mutableListOf(
+        context.getString(R.string.default_item_1),
+        context.getString(R.string.default_item_2),
+        context.getString(R.string.default_item_3),
+        context.getString(R.string.default_item_4),
+        context.getString(R.string.default_item_5),
+        context.getString(R.string.default_item_6)
     )
 }
