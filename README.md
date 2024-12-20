@@ -18,6 +18,10 @@ SpinWheel is a customizable and animated spinning wheel component built using **
 ## Screenshots
 
 
+
+https://github.com/user-attachments/assets/e225e08f-be90-4a79-8961-94c02a07b8f7
+
+
 ----------
 
 ## Installation
